@@ -12,4 +12,5 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/hotels", hotelRoutes);
 
+
 module.exports = app;

@@ -2,8 +2,8 @@ const Hotel = require("../models/Hotel");
 
 const registerHotel = async (req, res) => {
   try {
-    const { name, phone, address, city, state,image } = req.body;
-     console.log("Incoming Body:", req.body); 
+    const { name, phone, address, city, state, image } = req.body;
+    console.log("Incoming Body:", req.body);
 
     const existing = await Hotel.findOne({ phone });
     if (existing) {
@@ -16,7 +16,7 @@ const registerHotel = async (req, res) => {
       address,
       city,
       state,
-      image, 
+      image,
     });
 
     await hotel.save();
@@ -25,5 +25,12 @@ const registerHotel = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-module.exports = { registerHotel };
+const getHotels = async (req, res) => {
+  try {
+    const hotels = await Hotel.find();
+    res.status(200).json(hotels);
+  } catch (error) {
+    console.log("Error getting hotels->", error);
+  }
+};
+module.exports = { registerHotel, getHotels };
