@@ -2,16 +2,15 @@ const Hotel = require("../models/Hotel");
 
 const registerHotel = async (req, res) => {
   try {
-    const { hotelId, name, phone, address, city, state, image } = req.body;
+    const { name, phone, address, city, state, image } = req.body;
     console.log("Incoming Body:", req.body);
 
-    const existing = await Hotel.findOne({ hotelId });
+    const existing = await Hotel.findOne({ phone });
     if (existing) {
       return res.status(400).json({ message: "Hotel already exists" });
     }
 
     const hotel = new Hotel({
-      hotelId,
       name,
       phone,
       address,
