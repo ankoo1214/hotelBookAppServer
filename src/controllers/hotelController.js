@@ -2,7 +2,7 @@ const Hotel = require("../models/Hotel");
 
 const registerHotel = async (req, res) => {
   try {
-    const { hotelId, name, phone, address, city, state, image } = req.body;
+    const { hotelId, name, phone, address, city, state, images } = req.body;
     console.log("Incoming Body:", req.body);
 
     const existing = await Hotel.findOne({ hotelId });
@@ -17,7 +17,7 @@ const registerHotel = async (req, res) => {
       address,
       city,
       state,
-      image,
+      images,
     });
 
     await hotel.save();
