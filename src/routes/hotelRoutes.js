@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/register", registerHotel);
 router.get("/", getHotels);
-router.delete("deletAll", deleteAllHotels);
+router.delete("deleteAll", deleteAllHotels);
 
 module.exports = router;
