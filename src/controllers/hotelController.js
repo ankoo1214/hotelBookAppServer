@@ -70,4 +70,9 @@ const insertManyHotels = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-module.exports = { registerHotel, getHotels, deleteAllHotels };
+module.exports = {
+  registerHotel,
+  getHotels,
+  deleteAllHotels,
+  insertManyHotels,
+};
