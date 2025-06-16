@@ -51,7 +51,9 @@ const insertManyHotels = async (req, res) => {
   try {
     const hotels = req.body;
     if (!Array.isArray(hotels)) {
-      return res.status(400).json({ message: "Excepted array of hotels" });
+      return res
+        .status(400)
+        .json({ message: "Excepted array of hotels", data: hotels });
     }
     const existingIDs = await Hotel.find({
       hotelId: { $in: hotels.map((h) => h.hotelId) },
