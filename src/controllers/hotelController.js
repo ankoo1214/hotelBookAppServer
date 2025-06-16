@@ -46,4 +46,28 @@ const deleteAllHotels = async (req, res) => {
     res.status(500).json({ error: "Failed to delete hotels" });
   }
 };
+//insert many
+const insertManyHotels = async (req, res) => {
+  try {
+    const hotels = req.body;
+    if (!Array.isArray(hotels)) {
+      return res.status(400).json({ message: "Excepted array of hotels" });
+    }
+    const existingIDs = await Hotel.find({
+      hotelId: { $in: hotels.map((h) => h.hotelId) },
+    });
+    if (existingIDs.length > 0) {
+      return res.status(400).json({
+        message: "Some hotel id have already exists",
+        existingHotelIDs: existingIDs.map((id) => id.hotelId),
+      });
+    }
+    const result = await Hotel.insertMany(hotels);
+    res
+      .status(202)
+      .json({ message: "Hotels Inserted Successfully", data: result });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 module.exports = { registerHotel, getHotels, deleteAllHotels };
